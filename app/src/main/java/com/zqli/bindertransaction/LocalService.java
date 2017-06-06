@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -13,6 +14,7 @@ import java.util.Random;
  */
 
 public class LocalService extends Service {
+    private String TAG = "LocalService";
     // Binder given to clients
     private final IBinder binder = new LocalBinder();
     // Random number generator
@@ -24,6 +26,7 @@ public class LocalService extends Service {
      */
     public class LocalBinder extends Binder {
         LocalService getService() {
+            Log.d(TAG, "getService: ");
             return LocalService.this;
         }
     }
@@ -31,11 +34,13 @@ public class LocalService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind: ");
         return binder;
     }
 
     /** method for clients */
     public int getRandomNumber() {
+        Log.d(TAG, "getRandomNumber: ");
         return generator.nextInt(100);
     }
 }
